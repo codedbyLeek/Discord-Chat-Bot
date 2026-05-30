@@ -1,13 +1,3 @@
-All chat logs
-
-
-AI Coding Instructor
-
-Guided
-Local
-
-
-Sign In
 Welcome to CodeCoach. 👋
 
 You're going to build real apps on your own machine — with a real terminal, real files, and real Python. I'll guide you through every step, from opening a terminal to running your finished app.
@@ -465,3 +455,134 @@ Here's what each line does:
 `intents.message_content = True` — This specifically turns on the ability to read message content. This matches the "Message Content Intent" toggle we turned on earlier. Without this line, your bot would be in the server but couldn't read what anyone types — like being in a room with earplugs.
 `client = discord.Client(intents=intents)` — This creates your actual bot! Think of client as the robot itself. You're building it and handing it the permission list (intents) so it knows what it's allowed to do. We'll use client for everything from here — it IS your bot.
 Let me know when that's saved and we'll make your bot announce when it comes online! 📢
+
+Done! What's next?
+
+Now let's teach your bot to announce itself when it comes online. Add these lines below what you just typed:
+
+python
+to editor
+copy
+@client.event
+async def on_ready():
+    print(f"{client.user} is online and ready!")
+Save the file — Ctrl + S.
+
+This one has a few new concepts, so let's break it down:
+
+`@client.event` — This is called a decorator. Think of it like sticking a label on a gift box. It tells Discord "hey, the function below this is something special — it responds to a Discord event." An event is anything that happens on Discord — someone joins, a message is sent, the bot comes online, etc.
+`async def on_ready():` — This creates a function called on_ready. A function is like a recipe — it's a set of instructions that runs when something specific happens. The name on_ready is special — Discord automatically looks for this exact name and runs it when your bot successfully connects. The word async means "this function might need to wait for things" — Discord bots do a lot of waiting (waiting for messages, waiting for responses), so we tell Python upfront.
+`print(f"{client.user} is online and ready!")` — This prints a message in YOUR terminal (not in Discord) confirming the bot is alive. The f before the quotes lets you put variables inside {} curly braces — so {client.user} gets replaced with your bot's actual name.
+Let me know when that's saved and we'll add the final line that turns everything on! ⚡
+
+explain the decorator more and the async
+
+Great questions! Let's go deep on both. 👇
+
+Decorators (@client.event)
+Imagine you work at a hotel front desk. Guests walk in all day, but you only care about certain types of guests — maybe VIPs.
+
+So you put a special sticker on certain rooms that says "when a VIP arrives, put them HERE."
+
+That's what a decorator does. The @client.event line is the sticker. It tells Discord:
+
+"The function right below me? That's not just any function. It's one that should run when a specific Discord event happens."
+Without the @client.event sticker, your on_ready function would just sit there doing nothing. Discord wouldn't know it exists. The decorator connects your function to Discord's event system.
+
+The @ symbol is Python's way of saying "this is a decorator." You'll always see it sitting on the line directly above a function.
+
+Async (async def)
+Normally, Python does one thing at a time — like a single cashier at a grocery store. Each customer has to wait for the one in front to finish completely.
+
+But a Discord bot can't work that way. Imagine your bot is in a busy server — 10 people send messages at the same time. If your bot had to fully finish responding to person 1 before even looking at person 2's message, it would be painfully slow.
+
+`async` tells Python: "This function might need to pause and wait for something — like waiting for Discord to respond or waiting for OpenAI to generate an answer. While it's waiting, go ahead and handle other stuff."
+
+Think of it like a waiter at a restaurant. They don't stand at your table waiting for the kitchen to cook your food. They take your order, hand it to the kitchen, and then go serve other tables. When your food is ready, they come back.
+
+That's async — it lets your bot be a smart waiter instead of a single slow cashier.
+
+You'll see the word `await` soon — that's the moment where the bot says "I'm waiting for this, go handle other things in the meantime."
+
+Does that make sense? Ready to move on to the final line that turns everything on? ⚡
+
+yes ready
+
+Now add this as the very last line in your file:
+
+python
+to editor
+copy
+client.run(TOKEN)
+Save the file — Ctrl + S.
+
+Here's what this does:
+
+`client.run(TOKEN)` — Remember client is your bot, and TOKEN is the box holding your bot's secret password. This line says "take my bot, use this password to log into Discord, and START RUNNING."
+Think of it like turning the key in an ignition. Everything we wrote above was building the car — the intents, the events, the function. This line starts the engine.
+
+This line must always be at the very bottom of your file. Once it runs, your bot is alive and listening.
+
+Let's test it! 🎉
+Your full bot.py file should now look like this:
+
+python
+to editor
+copy
+import discord
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+TOKEN = os.getenv("DISCORD_TOKEN")
+
+intents = discord.Intents.default()
+intents.message_content = True
+client = discord.Client(intents=intents)
+
+@client.event
+async def on_ready():
+    print(f"{client.user} is online and ready!")
+
+client.run(TOKEN)
+Double check your file matches that exactly. Then in your terminal, type this and press Enter:
+
+to editor
+copy
+python bot.py
+You should see your bot's name followed by is online and ready! printed in your terminal. And if you check your Discord server — your bot should now show as online! 🟢
+
+Let me know what happens! 🤞
+
+Done! What's next?
+
+Your bot is ALIVE! 🎉🤖🟢
+
+That's a huge milestone — you just built a working Discord bot from scratch. Take a second to appreciate that!
+
+Stage 1 — Complete! ✅
+What you built: A Discord bot that connects to your server and comes online.
+
+Concepts you learned:
+
+Creating a bot on Discord's Developer Portal
+Bot tokens and keeping secrets safe in .env files
+Importing packages in Python
+Variables (labeled boxes that hold values)
+Intents (permissions that tell Discord what your bot can do)
+Decorators (stickers that connect functions to events)
+Async functions (smart waiters that can multitask)
+Running a Python script from the terminal
+Checkpoint questions before we move on — answer these in your own words:
+
+1. What does the .env file do and why don't we just paste our token directly into bot.py?
+
+2. What would happen if we removed the @client.event decorator from above our on_ready function?
+
+Take your time — there's no wrong way to answer. Just tell me what you think! 🧠
+
+
+Type a message...
+
+
+
