@@ -1,0 +1,31 @@
+PROJECT: Discord AI Auto-Responder Bot
+LANGUAGE: Python
+ESTIMATED TIME: 4 sessions
+WHAT IT WILL DO: A Discord bot that lives in your server, listens to 
+messages, sends them to OpenAI's ChatGPT API, and responds with 
+intelligent AI-generated answers — automatically.
+
+FOLDER STRUCTURE:
+discord-ai-bot/
+├── bot.py          (main bot file — runs everything)
+├── ai.py           (handles talking to OpenAI)
+├── .env            (stores your secret keys safely)
+└── requirements.txt (lists packages your project needs)
+
+BUILD STAGES:
+  Stage 1 — The Skeleton    → Create the bot, connect it to Discord, 
+                               make it come online
+  Stage 2 — The Ears        → Teach the bot to listen to messages in 
+                               your server
+  Stage 3 — The Brain       → Connect OpenAI so the bot can generate 
+                               smart responses
+  Stage 4 — The Polish      → Add error handling, a command prefix to 
+                               control when it responds, and clean up
+
+CONCEPTS YOU WILL LEARN:
+  - How Discord bots work (tokens, intents, events)
+  - Environment variables (keeping secrets safe)
+  - Async/await (how Python handles waiting for responses)
+  - Working with external APIs (OpenAI)
+  - Reading and responding to events in real time
+  - Error handling and user experience
